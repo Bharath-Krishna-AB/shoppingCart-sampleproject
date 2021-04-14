@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var productHelper=require('../helpers/product-helpers')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -38,7 +39,9 @@ router.get('/add-products',function(req,res){
   res.render('admin/add-products')
 })
 router.post('/add-products',function(req,res){
-  console.log(req.body);
+  productHelper.addProduct(req.body,(result)=>{
+    res.render('/admin/add-products')
+  })
 })
 
 module.exports = router;
