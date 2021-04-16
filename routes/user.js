@@ -13,7 +13,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next) {
-res.render('user/login')
+  if(req.session.loggedIn){
+    res.redirect('/')
+  }else{
+res.render('user/login',{'loginErr':req.session.loginErr})
+req.session.loginErr=false
+  }
 });
 
 router.get('/signup', function(req, res, next) {
@@ -34,7 +39,8 @@ router.get('/signup', function(req, res, next) {
           res.redirect('/')
 
         }else{
-          res.redirect('/login')
+          req.session.loginErr=true
+          res.redirect('/login',)
         }
       })
       });
@@ -42,6 +48,10 @@ router.get('/signup', function(req, res, next) {
         req.session.destroy()
         res.redirect('/')
       })
+
+      router.get('/Cart', function(req, res, next) {
+        res.render('user/Cart')
+        });
 
 
 

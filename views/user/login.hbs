@@ -11,6 +11,9 @@
     <label for="exampleInputPassword1" class="form-label">Password</label>
     <input type="password" name="Password" class="form-control" id="exampleInputPassword1">
   </div>
+  {{#if loginErr}}
+  <p class="text-danger">Invalid username or passsword.</p>
+  {{/if}}
   <button type="submit" class="btn btn-primary m-4">Submit</button>
   <a href="/signup">Create Account</a>
 </form>
