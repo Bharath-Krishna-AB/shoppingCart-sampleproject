@@ -1,4 +1,6 @@
 var express = require('express');
+const { response } = require('../app');
+const productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
 var productHelper=require('../helpers/product-helpers')
 
@@ -13,12 +15,15 @@ router.get('/add-products',function(req,res){
 })
 router.post('/add-products',function(req,res){
   productHelper.addProduct(req.body,(result)=>{
-    res.render('/admin/view-products')
+    res.redirect('/admin')
   })
 })
 
-router.get('/delete-products',(req,res)=>{
-  res.render('/admin/delete-products')
+router.get('/delete-products/',(req,res)=>{
+let prodId=req.query.id
+productHelpers.deleteProducts(prodId).then((response)=>{
+  res.redirect('/admin')
+})
 })
 
 module.exports = router;

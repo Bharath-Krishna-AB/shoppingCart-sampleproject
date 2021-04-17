@@ -22,7 +22,7 @@
       <td>{{this.Description}}</td>
       <td><img class="admin-images"  src="{{this.Url}}" alt=""></td>
       <td><a href="/admin/edit-products" class="btn btn-primary">Edit</a></td>
-      <td><a href="/admin/delete-products" class="btn btn-danger">Delete</a></td>
+      <td><a href="/admin/delete-products?id={{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{this.Name}}')">Delete</a></td>
        
       
     </tr>
