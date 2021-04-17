@@ -17,4 +17,8 @@ router.post('/add-products',function(req,res){
   })
 })
 
+router.get('/delete-products',(req,res)=>{
+  res.render('/admin/delete-products')
+})
+
 module.exports = router;

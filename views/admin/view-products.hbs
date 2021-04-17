@@ -6,7 +6,6 @@
 <table class="table mt-5">
   <thead>
     <tr>
-      <th scope="col">No.</th>
       <th scope="col">Title</th>
       <th scope="col">Category</th>
       <th scope="col">Price</th>
@@ -17,13 +16,15 @@
   <tbody>
       {{#each products}}
     <tr>
-      <th scope="row">1</th>
       <td>{{this.Name}}</td>
       <td>{{this.Category}}</td>
       <td>{{this.Price}}</td>
       <td>{{this.Description}}</td>
       <td><img class="admin-images"  src="{{this.Url}}" alt=""></td>
-
+      <td><a href="/admin/edit-products" class="btn btn-primary">Edit</a></td>
+      <td><a href="/admin/delete-products" class="btn btn-danger">Delete</a></td>
+       
+      
     </tr>
     {{/each}}
   </tbody>
