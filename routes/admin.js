@@ -20,10 +20,21 @@ router.post('/add-products',function(req,res){
 })
 
 router.get('/delete-products/',(req,res)=>{
-let prodId=req.query.id
-productHelpers.deleteProducts(prodId).then((response)=>{
+let proId=req.query.id
+productHelpers.deleteProducts(proId).then((response)=>{
   res.redirect('/admin')
 })
+})
+
+router.get('/edit-products/:id',async (req,res)=>{
+  let product=await productHelpers.getproductDetailes(req.params.id)
+  res.render('admin/edit-products',{product})
+})
+
+router.post('/edit-products/:id',(req,res)=>{
+  productHelpers.updateProducts(req.params.id,req.body).then(()=>{
+    res.redirect('/admin')
+  })
 })
 
 module.exports = router;
