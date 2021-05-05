@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   })
 });
 router.get('/add-products',function(req,res){
-  res.render('admin/add-products')
+  res.render('admin/add-products',{admin:true})
 })
 router.post('/add-products',function(req,res){
   productHelper.addProduct(req.body,(result)=>{
@@ -28,7 +28,7 @@ productHelpers.deleteProducts(proId).then((response)=>{
 
 router.get('/edit-products/:id',async (req,res)=>{
   let product=await productHelpers.getproductDetailes(req.params.id)
-  res.render('admin/edit-products',{product})
+  res.render('admin/edit-products',{product,admin:true})
 })
 
 router.post('/edit-products/:id',(req,res)=>{

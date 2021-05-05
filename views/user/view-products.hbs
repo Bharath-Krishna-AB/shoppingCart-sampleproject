@@ -1,4 +1,4 @@
-  <section>
+  <section class="pt-4">
       <div class="container-fluid">
           {{#each products}}
           <div class="row pt-4">
@@ -12,7 +12,7 @@
         <h5 class="card-title">{{this.Name}}</h5>
         <p class="card-text">{{this.Description}}</p>
         <p class="card-text price-color">₹{{this.Price}}</p>
-        <a href="/addToCart/{{this._id}}" class="btn btn-outline-dark">Add To Cart</a>
+        <button onclick="addToCart('{{this._id}}')" class="btn btn-outline-dark">Add To Cart</button>
       </div>
     </div>
   </div>

@@ -1,33 +1,43 @@
-<section>
+<section  class="cartSection">
 <div class="container">
-<table class="table mt-5">
+<table class="table">
   <thead>
     <tr>
       <th scope="col">Item</th>
       <th scope="col">Title</th>
+      <th scope="col">Price</th>
       <th scope="col">Quantity</th>
     </tr>
   </thead>
   <tbody>
       {{#each products}}
     <tr>
-        <td><img src="{{this.Url}}" alt="" style="width: 50px;height: 50px;"></td>
-      <td>{{this.Name}}</td>
+        <td><img src="{{this.product.Url}}" alt="" style="width: 50px;height: 50px;"></td>
+      <td>{{this.product.Name}}</td>
+      <td class="price-color">₹{{this.product.Price}}</td>
       <td>
-          <button class="bg-secondary" style="float: left;" onclick="num()">-</button>
-          <p style="float: left;" class="ps-2">1</p>
-          <button class="bg-secondary ms-2" style="float: left;" onclick="num1()">+</button>
+        <button class="cartbutton btn " style="float: left;" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button>
+        <span  style="float: left;" class="ps-2 cartQuantity" id="{{this.product._id}}">{{this.quantity}}</span>        
+          <button class="cartbutton ms-2 btn" style="float: left;"  onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
           </td>
-      <td><a href="/admin/delete-products?id={{this._id}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete {{this.Name}}')">Delete</a></td>
+      <td>
+        <button onclick="removeFromCart('{{this._id}}','{{this.product._id}}')" class="btn btn-danger">Remove</button>
+        </td>
     </tr>
     {{/each}}
   </tbody>
 </table>
+<table style="float: right;">
+  <tr>
+  <td><h3 class="cartPrice">Total: ₹
+    <span id="total">{{totalval}}</span>
+    </h3></td>
+  </tr>
+  <tr>
+  <td><a href="/place-order" class="placeOrder btn btn-success">Place Order</a></td>
+  </tr>
+</table>
+
+
 </div>
 </section>
-
-<script>
-  function num(num){
-    console.log(num)
-  }
-</script>

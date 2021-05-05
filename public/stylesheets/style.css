@@ -12,3 +12,41 @@ body{
 .price-color{
   color: #B12704;
 }
+.cartbutton{
+  border: solid 2px;
+  border-color: #0d6efd;
+}
+.cartQuantity{
+  color: #B12704;
+}
+.cartSection{
+  padding-top: 100px;
+}
+.cartPrice{
+  margin-right: 4rem;
+  margin-top: 2rem;
+}
+.placeOrder{
+  margin-top: 2rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+.EnterDeliveryDetails{
+  margin-bottom: 3rem;
+
+}
+.placeOrder-text{
+  font-weight: bold;
+  padding-top: 1rem;
+}
+.input-PlaceOrder{
+  width: 28rem;
+}
+.leftSection{
+  margin-top: 8rem;
+}
+.rightSection{
+  margin-top: 8rem;
+}
+.payBox{
+}
