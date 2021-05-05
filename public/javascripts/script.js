@@ -60,3 +60,4 @@ function removeFromCart(cartId,proId){
     }
   })
 }
+

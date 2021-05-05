@@ -3,6 +3,15 @@ const { response } = require('../app');
 const productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
 var productHelper=require('../helpers/product-helpers')
+const userhelpers = require('../helpers/userhelpers');
+
+const verifyadminLogin=(req,res,next)=>{
+  if(req.session.admin.loggedIn){
+    next()
+  }else{
+    res.redirect('/login')
+  }
+}
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -10,7 +19,7 @@ router.get('/', function(req, res, next) {
     res.render('admin/view-products',{admin:true,products})
   })
 });
-router.get('/add-products',function(req,res){
+router.get('/add-products',verifyadminLogin,function(req,res){
   res.render('admin/add-products',{admin:true})
 })
 router.post('/add-products',function(req,res){
@@ -36,5 +45,30 @@ router.post('/edit-products/:id',(req,res)=>{
     res.redirect('/admin')
   })
 })
+
+router.get('/adminlogin', function(req, res, next) {
+  if(req.session.admin){
+    res.redirect('/login')
+  }else{
+    let loginErr=req.session.adminLoginErr
+res.render('/admin',{loginErr})
+req.session.userLoginErr=false
+  }
+});
+
+router.post('/login', function(req, res, next) {
+  userHelpers.doLogin(req.body).then((response)=>{
+    if(response.status){
+      
+      req.session.admin=response.admin
+      req.session.admin.loggedIn=true
+      res.redirect('/')
+
+    }else{
+      req.session.userloginErr=true
+      res.redirect('/login',)
+    }
+  })
+  })
 
 module.exports = router;
