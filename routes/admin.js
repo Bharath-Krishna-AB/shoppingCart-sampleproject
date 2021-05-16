@@ -1,31 +1,28 @@
 var express = require('express');
-const { response } = require('../app');
 const productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
 var productHelper=require('../helpers/product-helpers')
 const userhelpers = require('../helpers/userhelpers');
 
-const verifyadminLogin=(req,res,next)=>{
-  if(req.session.admin.loggedIn){
-    next()
-  }else{
-    res.redirect('/login')
-  }
-}
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  let Admin =req.session.admin
   productHelper.getAllProducts().then((products)=>{
-    res.render('admin/view-products',{admin:true,products})
+    res.render('admin/view-products',{admin:true,products,Admin})
   })
 });
-router.get('/add-products',verifyadminLogin,function(req,res){
+router.get('/add-products',function(req,res){
   res.render('admin/add-products',{admin:true})
 })
 router.post('/add-products',function(req,res){
   productHelper.addProduct(req.body,(result)=>{
     res.redirect('/admin')
   })
+})
+
+router.get('/AdminLogout',(req,res)=>{
+  req.session.destroy()
+  res.redirect('/admin')
 })
 
 router.get('/delete-products/',(req,res)=>{
@@ -46,29 +43,36 @@ router.post('/edit-products/:id',(req,res)=>{
   })
 })
 
-router.get('/adminlogin', function(req, res, next) {
-  if(req.session.admin){
-    res.redirect('/login')
+router.get('/LoginAdmin',(req,res)=>{
+  if(req.session.LogIn){
+    res.redirect('/admin')
   }else{
-    let loginErr=req.session.adminLoginErr
-res.render('/admin',{loginErr})
-req.session.userLoginErr=false
+  res.render('admin/adminLogin')
   }
-});
+  
+})
 
-router.post('/login', function(req, res, next) {
-  userHelpers.doLogin(req.body).then((response)=>{
-    if(response.status){
-      
-      req.session.admin=response.admin
-      req.session.admin.loggedIn=true
-      res.redirect('/')
-
+router.post('/LoginAdmin',(req,res)=>{
+  userhelpers.loginAd(req.body).then((response)=>{
+    if(response.status){    
+      req.session.LogIn=true
+      req.session.admin=response.admin  
+      res.redirect('/admin')
     }else{
-      req.session.userloginErr=true
-      res.redirect('/login',)
+      res.redirect('/admin/adminLogin')
     }
   })
+ 
+})
+
+router.get('/SignupAdmin0224',(req,res)=>{
+  res.render('admin/adminSignup')
+})
+
+router.post('/SignupAdmin0224',(req,res)=>{
+  userhelpers.signupAd(req.body).then((response)=>{
+    res.redirect('/admin/SignupAdmin0224')
   })
+})
 
 module.exports = router;
